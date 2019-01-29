@@ -1,5 +1,6 @@
 #include<iostream>
 #include<cmath>
+#include<algorithm>
 using namespace std;
 int main()
 {
@@ -11,6 +12,7 @@ int main()
     int prevpos[100000] = {0};
     int num = 0;
     int check = 0;
+    int b[n],m=0;
     for(int i = 0; i<n; i++)
     {
         cin>>a[i];
@@ -18,6 +20,7 @@ int main()
         {
             num++;
             prevpos[a[i]] = i;
+            b[m++] = a[i];
         }
         else if (count[a[i]] == 1)
         {
@@ -42,32 +45,21 @@ int main()
         if(num > 0)
         {
             cout<<num<<"\n";
-            for(int i = 1; i< n; i++)
+            sort(b,b+m);
+            
+            for(int i = 0; i<m; i++)
             {
-                int temp = a[i];
-                int j = i-1;
-                while(j>=0 && a[j]> temp)
-                {
-                    a[j+1] = a[j];
-                    j--;
-                }
-                a[j+1] = temp;
-            }
-            for(int i = 0; i<n; i++)
-            {
-                if(pos[a[i]] == -1)
+                if(pos[b[i]] == -1)
                 {
                     continue;
                 }
-                else if(count[a[i]]>1)
+                else if(count[b[i]]>1)
                 {
-                    cout<<a[i]<<" "<<pos[a[i]]<<"\n";
-                    count[a[i]] = 0;
+                    cout<<b[i]<<" "<<pos[b[i]]<<"\n";
                 }
-                else if(count[a[i]] == 1)
+                else if(count[b[i]] == 1)
                 {
-                    cout<<a[i]<<" "<<0<<"\n";
-                    count[a[i]] = 0;
+                    cout<<b[i]<<" "<<0<<"\n";
                 }
             }
         }
